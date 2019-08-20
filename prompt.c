@@ -1,19 +1,25 @@
 #include <stdio.h>
 #include <unistd.h>
+#include <stdlib.h>
 
 /**
  * main - prints all arguments
  *
- * @ac: count argument
- * @av: 
- *
  * Return: Always 0.
  */
-int main(int ac, char **av)
+int main(void)
 {
-	pid_t my_ppid;
+	char *buffer;
+	size_t bufsize = 1024;
 
-	my_ppid = getppid();
-	printf("%u\n", my_ppid);
+	buffer = malloc(bufsize * sizeof(char));
+	if (buffer == NULL)
+		return (-1);
+
+	printf("$ ");
+	getline(&buffer, &bufsize, stdin);
+	printf("%s", buffer);
+
+	free(buffer);
 	return (0);
 }
